@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
 our $DATE = '2014-11-21'; # DATE
-our $VERSION = '0.17'; # VERSION
+our $VERSION = '0.18'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -111,8 +111,7 @@ sub _fmt_opt {
     my $is_bool = $arg_spec->{schema} &&
         $arg_spec->{schema}[0] eq 'bool';
     my $show_default = exists($ospec->{default}) &&
-        !$is_bool && !$ospec->{is_base64} &&
-            !$ospec->{is_json} && !$ospec->{is_yaml};
+        !$is_bool && !$ospec->{main_opt};
 
     my $add_sum = '';
     if ($ospec->{is_base64}) {
@@ -127,9 +126,23 @@ sub _fmt_opt {
         "B<" . $+{name} . ">" . ($+{dest} ? "=I<".$+{dest}.">" : $+{val})/eg;
 
     push @res, "=item $opt\n\n";
+
     push @res, "$ospec->{summary}$add_sum.\n\n" if $ospec->{summary};
+
     push @res, "Default value:\n\n ", dmp($ospec->{default}), "\n\n" if $show_default;
-    push @res, "$ospec->{description}\n\n" if $ospec->{description};
+
+    if ($ospec->{main_opt}) {
+        my $main_opt = $ospec->{main_opt};
+        $main_opt =~ s/\s*,.+//;
+        push @res, "See C<$main_opt>.\n\n";
+    } else {
+        push @res, "$ospec->{description}\n\n" if $ospec->{description};
+    }
+
+    if ($opt =~ /\@/) {
+        push @res, "Can be specified multiple times.\n\n";
+    }
+
     join "", @res;
 }
 
@@ -502,7 +515,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.17 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
+This document describes version 0.18 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
 
 =head1 SYNOPSIS
 

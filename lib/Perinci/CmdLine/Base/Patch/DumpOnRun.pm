@@ -1,7 +1,7 @@
 package Perinci::CmdLine::Base::Patch::DumpOnRun;
 
 our $DATE = '2014-11-21'; # DATE
-our $VERSION = '0.17'; # VERSION
+our $VERSION = '0.18'; # VERSION
 
 use 5.010001;
 use strict;
@@ -53,7 +53,7 @@ Perinci::CmdLine::Base::Patch::DumpOnRun - Patch Perinci::CmdLine::Base to dump 
 
 =head1 VERSION
 
-This document describes version 0.17 of Perinci::CmdLine::Base::Patch::DumpOnRun (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
+This document describes version 0.18 of Perinci::CmdLine::Base::Patch::DumpOnRun (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
 
 =for Pod::Coverage ^(patch_data)$
 
