@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
 our $DATE = '2014-11-21'; # DATE
-our $VERSION = '0.16'; # VERSION
+our $VERSION = '0.17'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -199,6 +199,11 @@ sub _process_script {
     if (!$prog) {
         $prog = $filename;
         $prog =~ s!.+/!!;
+    }
+
+    if ($cli->{url} =~ m!^(pl:)?/main/!) {
+        $self->log(["skipped script '%s': function seems embedded in script ($cli->{url}, not supported", $filename]);
+        return;
     }
 
     # XXX handle dynamically generated module (if there is such thing in the
@@ -497,7 +502,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.16 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
+This document describes version 0.17 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
 
 =head1 SYNOPSIS
 
