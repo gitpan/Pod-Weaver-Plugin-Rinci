@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-11-21'; # DATE
-our $VERSION = '0.18'; # VERSION
+our $DATE = '2014-11-30'; # DATE
+our $VERSION = '0.19'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -131,15 +131,20 @@ sub _fmt_opt {
 
     push @res, "Default value:\n\n ", dmp($ospec->{default}), "\n\n" if $show_default;
 
+    if ($arg_spec->{schema} && $arg_spec->{schema}[1]{in}) {
+        push @res, "Valid values:\n\n ", dmp($arg_spec->{schema}[1]{in}), "\n\n";
+    }
+
     if ($ospec->{main_opt}) {
         my $main_opt = $ospec->{main_opt};
         $main_opt =~ s/\s*,.+//;
+        $main_opt =~ s/=.+//;
         push @res, "See C<$main_opt>.\n\n";
     } else {
         push @res, "$ospec->{description}\n\n" if $ospec->{description};
     }
 
-    if ($opt =~ /\@/) {
+    if (($ospec->{orig_opt} // '') =~ /\@/) {
         push @res, "Can be specified multiple times.\n\n";
     }
 
@@ -515,7 +520,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.18 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
+This document describes version 0.19 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-30.
 
 =head1 SYNOPSIS
 

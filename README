@@ -2,8 +2,8 @@ NAME
     Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 VERSION
-    This document describes version 0.18 of Pod::Weaver::Plugin::Rinci (from
-    Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-21.
+    This document describes version 0.19 of Pod::Weaver::Plugin::Rinci (from
+    Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-11-30.
 
 SYNOPSIS
     In your "weaver.ini":

@@ -10,7 +10,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141170'
+generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -23,7 +23,7 @@ requires:
   Markdown::To::POD: '0'
   Module::Patch: '0.19'
   Perinci::Access::Perl: '0.66'
-  Perinci::Sub::To::CLIOptSpec: '0.06'
+  Perinci::Sub::To::CLIOptSpec: '0.08'
   Perinci::To::POD: '0.36'
   Pod::Weaver: '0'
   UUID::Random: '0'
@@ -32,7 +32,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Weaver-Plugin-Rinci
   homepage: https://metacpan.org/release/Pod-Weaver-Plugin-Rinci
   repository: git://github.com/perlancar/perl-Pod-Weaver-Plugin-Perinci.git
-version: '0.18'
+version: '0.19'
 x_Dist_Zilla:
   perl:
     version: '5.018002'
@@ -179,7 +179,7 @@ x_Dist_Zilla:
             -
               class: Pod::Weaver::Plugin::Rinci
               name: '@Author::PERLANCAR/Rinci'
-              version: '0.17'
+              version: '0.18'
             -
               class: Pod::Weaver::Section::Leftovers
               name: '@Author::PERLANCAR/Leftovers'
@@ -189,13 +189,13 @@ x_Dist_Zilla:
               name: '@Author::PERLANCAR/postlude'
               version: '4.006'
             -
-              class: Pod::Weaver::Section::BashCompletion::GetoptLongComplete
-              name: '@Author::PERLANCAR/BashCompletion::GetoptLongComplete'
-              version: '0.01'
+              class: Pod::Weaver::Section::Completion::GetoptLongComplete
+              name: '@Author::PERLANCAR/Completion::GetoptLongComplete'
+              version: '0.04'
             -
-              class: Pod::Weaver::Section::BashCompletion::PerinciCmdLine
-              name: '@Author::PERLANCAR/BashCompletion::PerinciCmdLine'
-              version: '0.03'
+              class: Pod::Weaver::Section::Completion::PerinciCmdLine
+              name: '@Author::PERLANCAR/Completion::PerinciCmdLine'
+              version: '0.07'
             -
               class: Pod::Weaver::Section::Homepage::DefaultCPAN
               name: '@Author::PERLANCAR/Homepage::DefaultCPAN'
@@ -256,7 +256,7 @@ x_Dist_Zilla:
           script_finder:
             - ':ExecFiles'
       name: '@Author::PERLANCAR/Test::Compile'
-      version: '2.040'
+      version: '2.043'
     -
       class: Dist::Zilla::Plugin::Test::Rinci
       name: '@Author::PERLANCAR/Test::Rinci'
