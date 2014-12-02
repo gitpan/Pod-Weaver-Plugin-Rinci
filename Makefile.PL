@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     "Markdown::To::POD" => 0,
     "Module::Patch" => "0.19",
     "Perinci::Access::Perl" => "0.66",
-    "Perinci::Sub::To::CLIOptSpec" => "0.08",
+    "Perinci::Sub::To::CLIDocData" => 0,
     "Perinci::To::POD" => "0.36",
     "Pod::Weaver" => 0,
     "UUID::Random" => 0
@@ -37,7 +37,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.19",
+  "VERSION" => "0.20",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -54,7 +54,7 @@ my %FallbackPrereqs = (
   "Markdown::To::POD" => 0,
   "Module::Patch" => "0.19",
   "Perinci::Access::Perl" => "0.66",
-  "Perinci::Sub::To::CLIOptSpec" => "0.08",
+  "Perinci::Sub::To::CLIDocData" => 0,
   "Perinci::To::POD" => "0.36",
   "Pod::Weaver" => 0,
   "Test::More" => 0,
