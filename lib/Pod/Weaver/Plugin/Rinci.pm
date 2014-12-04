@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-12-02'; # DATE
-our $VERSION = '0.20'; # VERSION
+our $DATE = '2014-12-04'; # DATE
+our $VERSION = '0.21'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -111,7 +111,7 @@ sub _fmt_opt {
     my $is_bool = $arg_spec->{schema} &&
         $arg_spec->{schema}[0] eq 'bool';
     my $show_default = exists($ospec->{default}) &&
-        !$is_bool && !$ospec->{main_opt};
+        !$is_bool && !$ospec->{main_opt} && !$ospec->{is_alias};
 
     my $add_sum = '';
     if ($ospec->{is_base64}) {
@@ -131,7 +131,7 @@ sub _fmt_opt {
 
     push @res, "Default value:\n\n ", dmp($ospec->{default}), "\n\n" if $show_default;
 
-    if ($arg_spec->{schema} && $arg_spec->{schema}[1]{in}) {
+    if ($arg_spec->{schema} && $arg_spec->{schema}[1]{in} && !$ospec->{is_alias}) {
         push @res, "Valid values:\n\n ", dmp($arg_spec->{schema}[1]{in}), "\n\n";
     }
 
@@ -535,7 +535,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.20 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-02.
+This document describes version 0.21 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-04.
 
 =head1 SYNOPSIS
 
