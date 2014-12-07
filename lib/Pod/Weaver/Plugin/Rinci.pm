@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-12-04'; # DATE
-our $VERSION = '0.21'; # VERSION
+our $DATE = '2014-12-07'; # DATE
+our $VERSION = '0.22'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -9,6 +9,7 @@ with 'Pod::Weaver::Role::Section';
 
 use Capture::Tiny qw(capture);
 use Data::Dmp qw(dmp);
+use Encode qw(decode encode);
 use File::Temp qw(tempfile);
 use List::Util qw(first);
 use Markdown::To::POD;
@@ -75,6 +76,10 @@ sub _process_module {
 
         $found++;
         #$self->log(["generated POD section %s", $1]);
+
+        # convert characters to bytes, which is expected by read_string()
+        $sectcontent = encode('UTF-8', $sectcontent, Encode::FB_CROAK);
+
         my $elem = Pod::Elemental::Element::Nested->new({
             command  => 'head1',
             content  => $sectname,
@@ -312,10 +317,13 @@ sub _process_script {
             }
         }
 
+        # convert characters to bytes, which is expected by read_string()
+        my $content = encode('UTF-8', join('',@content), Encode::FB_CROAK);
+
         my $elem = Pod::Elemental::Element::Nested->new({
             command  => 'head1',
             content  => 'SYNOPSIS',
-            children => Pod::Elemental->read_string(join '',@content)->children,
+            children => Pod::Elemental->read_string($content)->children,
         });
         push @{ $document->children }, $elem;
         $modified++;
@@ -535,7 +543,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.21 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-04.
+This document describes version 0.22 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-07.
 
 =head1 SYNOPSIS
 
