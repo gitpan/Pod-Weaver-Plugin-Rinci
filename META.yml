@@ -32,10 +32,10 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=Pod-Weaver-Plugin-Rinci
   homepage: https://metacpan.org/release/Pod-Weaver-Plugin-Rinci
   repository: git://github.com/perlancar/perl-Pod-Weaver-Plugin-Perinci.git
-version: '0.22'
+version: '0.23'
 x_Dist_Zilla:
   perl:
-    version: '5.018001'
+    version: '5.018002'
   plugins:
     -
       class: Dist::Zilla::Plugin::GatherDir
@@ -188,7 +188,7 @@ x_Dist_Zilla:
             -
               class: Pod::Weaver::Plugin::Rinci
               name: '@Author::PERLANCAR/Rinci'
-              version: '0.21'
+              version: '0.22'
             -
               class: Pod::Weaver::Section::Leftovers
               name: '@Author::PERLANCAR/Leftovers'
@@ -200,11 +200,11 @@ x_Dist_Zilla:
             -
               class: Pod::Weaver::Section::Completion::GetoptLongComplete
               name: '@Author::PERLANCAR/Completion::GetoptLongComplete'
-              version: '0.04'
+              version: '0.05'
             -
               class: Pod::Weaver::Section::Completion::PerinciCmdLine
               name: '@Author::PERLANCAR/Completion::PerinciCmdLine'
-              version: '0.07'
+              version: '0.08'
             -
               class: Pod::Weaver::Section::Homepage::DefaultCPAN
               name: '@Author::PERLANCAR/Homepage::DefaultCPAN'

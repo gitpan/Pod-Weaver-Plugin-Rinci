@@ -1,5 +1,12 @@
 Revision history for Pod-Weaver-Plugin-Perinci
 
+0.23    2014-12-09 (PERLANCAR)
+
+	- [Bugfix] Forgot to add 'lib' to @INC when executing script.
+
+	- Show raw stdout/stderr when failing to capture, for debugging.
+
+
 0.22    2014-12-07 (PERLANCAR)
 
 	- Fix encoding issue by converting characters to bytes as expected

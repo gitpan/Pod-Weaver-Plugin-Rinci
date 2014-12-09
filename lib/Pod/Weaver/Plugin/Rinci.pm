@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-12-07'; # DATE
-our $VERSION = '0.22'; # VERSION
+our $DATE = '2014-12-09'; # DATE
+our $VERSION = '0.23'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -188,7 +188,7 @@ sub _process_script {
     require UUID::Random;
     my $tag=UUID::Random::generate();
 
-    my @cmd = ($^X, "-MPerinci::CmdLine::Base::Patch::DumpOnRun=-tag,$tag");
+    my @cmd = ($^X, "-Ilib", "-MPerinci::CmdLine::Base::Patch::DumpOnRun=-tag,$tag");
     if ($file->isa("Dist::Zilla::File::OnDisk")) {
         push @cmd, $filename;
     } else {
@@ -212,11 +212,11 @@ sub _process_script {
         }
         if (!blessed($cli)) {
             die "Script '$filename' detected as using Perinci::CmdLine, ".
-                "but didn't get an object?";
+                "but didn't get an object?, raw captured output=<<$stdout>>";
         }
     } else {
         die "Script '$filename' detected as using Perinci::CmdLine, ".
-            "but can't capture object";
+            "but can't capture object, raw captured output: stdout=<<$stdout>>, stderr=<<$stderr>>";
     }
     my $prog = $cli->{program_name};
     if (!$prog) {
@@ -543,7 +543,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.22 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-07.
+This document describes version 0.23 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-09.
 
 =head1 SYNOPSIS
 
