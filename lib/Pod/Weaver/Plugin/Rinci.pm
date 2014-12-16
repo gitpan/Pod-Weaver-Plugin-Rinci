@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-12-09'; # DATE
-our $VERSION = '0.23'; # VERSION
+our $DATE = '2014-12-16'; # DATE
+our $VERSION = '0.24'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -159,6 +159,10 @@ sub _fmt_opt {
 sub _process_script {
     my ($self, $document, $input) = @_;
 
+    # XXX handle dynamically generated module (if there is such thing in the
+    # future)
+    local @INC = ("lib", @INC);
+
     my $filename = $input->{filename};
 
     # find file object
@@ -188,7 +192,7 @@ sub _process_script {
     require UUID::Random;
     my $tag=UUID::Random::generate();
 
-    my @cmd = ($^X, "-Ilib", "-MPerinci::CmdLine::Base::Patch::DumpOnRun=-tag,$tag");
+    my @cmd = ($^X, "-Ilib", "-MPerinci::CmdLine::Base::Patch::DumpAndExit=-tag,$tag");
     if ($file->isa("Dist::Zilla::File::OnDisk")) {
         push @cmd, $filename;
     } else {
@@ -203,7 +207,7 @@ sub _process_script {
         sub { system @cmd },
     );
     my $cli;
-    if ($stdout =~ /^# BEGIN DUMPOBJ $tag\s+(.*)^# END DUMPOBJ $tag/ms) {
+    if ($stdout =~ /^# BEGIN DUMP $tag\s+(.*)^# END DUMP $tag/ms) {
         $cli = eval $1;
         if ($@) {
             die "Script '$filename' detected as using Perinci::CmdLine, ".
@@ -224,18 +228,20 @@ sub _process_script {
         $prog =~ s!.+/!!;
     }
 
+    # XXX handle embedded but not in /main
     if ($cli->{url} =~ m!^(pl:)?/main/!) {
-        $self->log(["skipped script '%s': function seems embedded in script ($cli->{url}, not supported", $filename]);
-        return;
+        # function is embedded in script (/main/FOO), we need to load the
+        # metadata in-process
+        no warnings;
+        %main::SPEC = (); # empty first to avoid mixing with other scripts'
+        (undef, undef, undef) = capture {
+            eval q{package main; use Perinci::CmdLine::Base::Patch::DumpAndExit -tag=>'$tag', -exit_method=>'die'; do "$filename"};
+        };
     }
-
-    # XXX handle dynamically generated module (if there is such thing in the
-    # future)
-    local @INC = ("lib", @INC);
 
     # generate clidocdata(for all subcommands; if there is no subcommand then it
     # is stored in key '')
-    my %metas;
+    my %metas; # key = subcommand name
     my %clidocdata; # key = subcommand name
     if ($cli->{subcommands}) {
         if (ref($cli->{subcommands}) eq 'CODE') {
@@ -543,7 +549,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.23 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-09.
+This document describes version 0.24 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-16.
 
 =head1 SYNOPSIS
 
