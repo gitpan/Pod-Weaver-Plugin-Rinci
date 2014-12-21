@@ -13,7 +13,8 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "Insert stuffs to POD from Rinci metadata",
   "AUTHOR" => "perlancar <perlancar\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => 0
+    "ExtUtils::MakeMaker" => 0,
+    "Perl::osnames" => "0.09"
   },
   "DISTNAME" => "Pod-Weaver-Plugin-Rinci",
   "EXE_FILES" => [],
@@ -21,15 +22,14 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.010001",
   "NAME" => "Pod::Weaver::Plugin::Rinci",
   "PREREQ_PM" => {
-    "Capture::Tiny" => 0,
     "Data::Dmp" => 0,
     "Markdown::To::POD" => 0,
     "Perinci::Access::Perl" => "0.66",
-    "Perinci::CmdLine::Base::Patch::DumpAndExit" => 0,
+    "Perinci::CmdLine::Dump" => 0,
     "Perinci::Sub::To::CLIDocData" => 0,
     "Perinci::To::POD" => "0.36",
     "Pod::Weaver" => 0,
-    "UUID::Random" => 0
+    "Pod::Weaver::Role::DumpPerinciCmdLineScript" => 0
   },
   "TEST_REQUIRES" => {
     "File::Spec" => 0,
@@ -37,7 +37,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.24",
+  "VERSION" => "0.25",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -45,7 +45,6 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Capture::Tiny" => 0,
   "Data::Dmp" => 0,
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
@@ -53,12 +52,13 @@ my %FallbackPrereqs = (
   "IPC::Open3" => 0,
   "Markdown::To::POD" => 0,
   "Perinci::Access::Perl" => "0.66",
-  "Perinci::CmdLine::Base::Patch::DumpAndExit" => 0,
+  "Perinci::CmdLine::Dump" => 0,
   "Perinci::Sub::To::CLIDocData" => 0,
   "Perinci::To::POD" => "0.36",
+  "Perl::osnames" => "0.09",
   "Pod::Weaver" => 0,
-  "Test::More" => 0,
-  "UUID::Random" => 0
+  "Pod::Weaver::Role::DumpPerinciCmdLineScript" => 0,
+  "Test::More" => 0
 );
 
 
