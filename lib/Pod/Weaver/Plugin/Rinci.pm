@@ -1,7 +1,7 @@
 package Pod::Weaver::Plugin::Rinci;
 
-our $DATE = '2014-12-21'; # DATE
-our $VERSION = '0.25'; # VERSION
+our $DATE = '2014-12-26'; # DATE
+our $VERSION = '0.26'; # VERSION
 
 use 5.010001;
 use Moose;
@@ -163,7 +163,13 @@ sub _process_script {
     my $filename = $input->{filename};
 
     my $res = $self->dump_perinci_cmdline_script($input);
-    die "Can't dump script: $res->[0] - $res->[1]" unless $res->[0] == 200;
+    if ($res->[0] == 412) {
+        $self->log_debug(["skipped file '%s' (%s)", $filename, $res->[1]]);
+        return;
+    } elsif ($res->[0] != 200) {
+        die "Can't dump script: $res->[0] - $res->[1]";
+    }
+
     my $cli = $res->[2];
     local %main::SPEC = %{ $res->[3]{'func.meta'} } if $res->[3]{'func.meta'};
 
@@ -483,7 +489,7 @@ Pod::Weaver::Plugin::Rinci - Insert stuffs to POD from Rinci metadata
 
 =head1 VERSION
 
-This document describes version 0.25 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-21.
+This document describes version 0.26 of Pod::Weaver::Plugin::Rinci (from Perl distribution Pod-Weaver-Plugin-Rinci), released on 2014-12-26.
 
 =head1 SYNOPSIS
 
